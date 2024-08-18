@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class PlayerVisual : MonoBehaviour
@@ -8,11 +7,8 @@ public class PlayerVisual : MonoBehaviour
     [SerializeField] ParticleSystem smokeParticle;
     [SerializeField] ParticleSystem impactPartical;
 
-    private Quaternion targetRotationPositive = Quaternion.Euler(0, 0, 45);
-    private Quaternion targetRotationNegative = Quaternion.Euler(0, 0, -45);
+    Vector3 targetRotate = new Vector3(0, 0, 45);
     private float rotationSpeed = .1f;
-
-    
 
     void Start()
     {
@@ -23,12 +19,12 @@ public class PlayerVisual : MonoBehaviour
 
     private void PlayerController_MouseClickEnable(object sender, System.EventArgs e)
     {
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotationPositive, rotationSpeed);
+        this.transform.DORotate(targetRotate, rotationSpeed);
     }
 
     private void PlayerController_MouseClickDisable(object sender, System.EventArgs e)
     {
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotationNegative, rotationSpeed);
+        this.transform.DORotate(-targetRotate, rotationSpeed);
     }
 
 
@@ -39,7 +35,5 @@ public class PlayerVisual : MonoBehaviour
         impactPartical.Play();
         this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         this.gameObject.GetComponent<TrailRenderer>().enabled = false;
-        Debug.Log("Çarpýþma");
     }
-
-}
+    }

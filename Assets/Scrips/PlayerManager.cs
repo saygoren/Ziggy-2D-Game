@@ -17,7 +17,6 @@ public class PlayerManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        
     }
 
     private void Start()
@@ -31,6 +30,17 @@ public class PlayerManager : MonoBehaviour
         {
             PlayerHitground?.Invoke(this, EventArgs.Empty);
             this.GetComponent<EdgeCollider2D>().enabled = false;
+            rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
+            Invoke("ReStartGame", 1);
         }
+    }
+
+    private void ReStartGame()
+    {
+        this.transform.position = new Vector3(-200, 0, 0);
+        playerVisual.GetComponent<SpriteRenderer>().enabled = true;
+        playerVisual.GetComponent<TrailRenderer>().enabled = true;
+        this.GetComponent<EdgeCollider2D>().enabled = true;
+        rb.constraints = RigidbodyConstraints2D.None;
     }
 }
