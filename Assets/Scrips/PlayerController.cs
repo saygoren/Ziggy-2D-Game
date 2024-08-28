@@ -7,9 +7,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] SpeedSO speedData;
     Rigidbody2D rb;
     Vector2 speedVelocity = Vector2.right;
-    private float speed = 110f;
+    
 
     public event EventHandler MouseClikEnable;
     public event EventHandler MouseClickDisable;
@@ -24,16 +25,16 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         Movement();
         MouseClickMovement();
-
     }
+
 
     private void Movement()
     {
-        rb.velocity = speedVelocity * speed;
+        rb.velocity = speedVelocity * speedData.speed;
     }
 
     private void MouseClickMovement()

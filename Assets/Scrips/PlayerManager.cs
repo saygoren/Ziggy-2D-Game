@@ -9,6 +9,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] GameObject playerVisual;
     [SerializeField] GameObject playerManager;
 
+
     public event EventHandler PlayerHitground;
     public static PlayerManager instance;
 
@@ -29,7 +30,6 @@ public class PlayerManager : MonoBehaviour
         if (collision.gameObject.CompareTag("Floor"))
         {
             PlayerHitground?.Invoke(this, EventArgs.Empty);
-            this.GetComponent<EdgeCollider2D>().enabled = false;
             rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
             Invoke("ReStartGame", 1);
         }
@@ -40,7 +40,6 @@ public class PlayerManager : MonoBehaviour
         this.transform.position = new Vector3(-200, 0, 0);
         playerVisual.GetComponent<SpriteRenderer>().enabled = true;
         playerVisual.GetComponent<TrailRenderer>().enabled = true;
-        this.GetComponent<EdgeCollider2D>().enabled = true;
         rb.constraints = RigidbodyConstraints2D.None;
     }
 }
